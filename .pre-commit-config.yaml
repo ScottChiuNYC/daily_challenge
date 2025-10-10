@@ -9,22 +9,6 @@ repos:
       - id: trailing-whitespace
       - id: check-yaml
 
-  - repo: https://github.com/psf/black
-    rev: stable
-    hooks:
-      - id: black
-        language_version: python3
-
-  - repo: https://github.com/pre-commit/mirrors-isort
-    rev: v5.12.0
-    hooks:
-      - id: isort
-
-  - repo: https://github.com/pre-commit/mirrors-flake8
-    rev: v6.1.0
-    hooks:
-      - id: flake8
-
   - repo: local
     hooks:
       - id: draw-2025-heatmap
@@ -33,4 +17,4 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
-        stages: [commit]
+        stages: [pre-commit]
