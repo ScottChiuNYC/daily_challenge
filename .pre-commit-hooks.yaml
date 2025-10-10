@@ -1,0 +1,11 @@
+---
+# pre-commit hook repository manifest
+# This allows other repositories to reference this repo as a hook source.
+
+hooks:
+  - id: draw-2025-heatmap
+    name: draw 2025 yearly heatmap
+    entry: python scripts/generate_heatmap.py
+    language: python
+    description: "Generate the 2025 yearly heatmap and stage the generated image."
+    additional_dependencies: []
