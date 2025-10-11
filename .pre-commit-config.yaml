@@ -2,19 +2,11 @@
 # Includes formatting/linting hooks and a local hook to regenerate the yearly heatmap
 
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
-    hooks:
-      - id: end-of-file-fixer
-      - id: trailing-whitespace
-      - id: check-yaml
-
   - repo: local
     hooks:
       - id: draw-2025-heatmap
         name: draw 2025 yearly heatmap
-        entry: python scripts/generate_heatmap.py
-        language: system
-        pass_filenames: false
-        always_run: true
-        stages: [pre-commit]
+        entry: python daily_challenge/__init__.py
+        language: python
+        description: "Generate the 2025 yearly heatmap and stage the generated image."
+        additional_dependencies: ['matplotlib', 'numpy']

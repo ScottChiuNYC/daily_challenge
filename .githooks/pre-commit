@@ -1,8 +1,0 @@
-#!/bin/sh
-# Pre-commit hook: regenerate yearly heatmap before every commit
-# This script is suitable for POSIX shells (Mac/Linux, Git Bash on Windows).
-
-# Run the generator. If it fails, abort the commit.
-python -c 'from daily_challenge import draw_2025_heatmap; draw_2025_heatmap()' || exit 1
-
-exit 0
