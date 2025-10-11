@@ -148,7 +148,7 @@ def main():
 
     # If output exists, stage it so the commit includes the generated image
     if out.exists():
-        subprocess.run(["git", "add", str(out)])
+        subprocess.run(["git", "add", str(out)]) 
 
 
 if __name__ == "__main__":
