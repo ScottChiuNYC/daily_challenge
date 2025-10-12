@@ -13,13 +13,14 @@ Add the following to the target repository's `.pre-commit-config.yaml` to use th
 ```yaml
 repos:
   - repo: https://github.com/ScottChiuNYC/daily_challenge
-    rev: main  # pin to a tag or commit for stability
+    rev: v0.1.0
     hooks:
-      - id: draw-2025-heatmap
-        # If you want pre-commit to create an isolated venv and install deps:
-        language: python
-        additional_dependencies: ['matplotlib', 'numpy']
-        entry: python -m daily_challenge
+    - id: draw-2025-heatmap
+      name: draw 2025 yearly heatmap
+      entry: python -c "from daily_challenge import main; main()"
+      language: python
+      description: "Generate the 2025 yearly heatmap and stage the generated image."
+      additional_dependencies: ['matplotlib', 'numpy']
 ```
 
 Notes:
