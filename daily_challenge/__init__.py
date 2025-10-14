@@ -1,7 +1,7 @@
 import os, subprocess
 import matplotlib.pyplot as plt
 import numpy as np
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from pathlib import Path
 
 def create_yearly_heatmaps_dir(repo_root: str | None = None) -> tuple[str, bool]:
@@ -62,7 +62,7 @@ def draw_2025_heatmap(commit_dates=None, output_file="./yearly_heatmaps/2025.png
         commit_dates = [date.date() for date in commit_dates]
 
     # Filter commit dates to only include those in 2025
-    commit_dates = [date for date in commit_dates if start_date <= date <= end_date]
+    commit_dates = [date for date in commit_dates if start_date <= date <= end_date] + [date.today()]
 
     # Convert commit_dates to a set for faster lookup
     commit_dates_set = set(commit_dates)
@@ -162,6 +162,9 @@ if __name__ == "__main__":
     # commit_dates = get_commit_dates(repo_path)
 
     # draw_2025_heatmap(commit_dates, output_file="../2025_colored_heatmap.png")
+
+    # There was an issue that, because this is used as a precommit hook, the first commit of a date doesn't give you today in the commit dates, 
+    # so we need to add today's date too
 
     main()
 
