@@ -1,4 +1,4 @@
-# daily_challenge — GitHub-hosted pre-commit hook
+# daily_challenge — GitHub-Hosted Pre-Commit Hook
 
 A lightweight pre-commit hook that regenerates a yearly activity heatmap from a repository's Git commit history and stages the generated PNG. This repository is intended to be referenced directly by other projects via `pre-commit` (no PyPI publication required).
 
