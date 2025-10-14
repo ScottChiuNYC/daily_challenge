@@ -33,7 +33,7 @@ repos:
         additional_dependencies: ['matplotlib', 'numpy']
 ```
 
-3. Recommended: Add the following image link to your repository's `README.md` so the generated heatmap will be displayed.
+3. Optional, but recommended: Add the following image link to your repository's `README.md` so the generated heatmap will be displayed.
 
 ```md
 ![2025 Yearly Heatmap](yearly_heatmaps/2025.png)
