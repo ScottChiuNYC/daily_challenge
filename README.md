@@ -19,7 +19,7 @@ pip install pre-commit
 pre-commit install
 ```
 
-2. Add the following to your target repo's `.pre-commit-config.yaml` (in the root of the target repo):
+2. Create a `.pre-commit-config.yaml` file at the root of the target repository and add the following contents:
 
 ```yaml
 repos:
