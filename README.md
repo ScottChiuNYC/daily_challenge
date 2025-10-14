@@ -1,16 +1,16 @@
 # daily_challenge — GitHub-hosted pre-commit hook
 
-A lightweight pre-commit hook that regenerates a yearly activity heatmap from a repository's Git commit history and stages the generated PNG. This repo is intended to be referenced directly from other projects using `pre-commit` (no PyPI publication required).
+A lightweight pre-commit hook that regenerates a yearly activity heatmap from a repository's Git commit history and stages the generated PNG. This repository is intended to be referenced directly by other projects via `pre-commit` (no PyPI publication required).
 
-Why use it
+Why use it?
 - Quickly visualize contributor activity for the year.
-- Keep a generated image in your repo (e.g. embedded in README) without having to run the generator manually.
+- Keep a generated image in your repo (for example, embedded in the README) without having to run the generator manually.
 
 Example output (committed to your repo):
 
 ![2025 Yearly Heatmap](yearly_heatmaps/2025.png)
 
-## Install & Configure in Your Repository
+## Install and Configure in Your Repository
 
 1. Install and enable `pre-commit` in the target repository:
 
@@ -33,7 +33,7 @@ repos:
         additional_dependencies: ['matplotlib', 'numpy']
 ```
 
-3. Recommended: Add the following image link to your repository's `README.md` so the generated heatmap will be displayed:
+3. Recommended: Add the following image link to your repository's `README.md` so the generated heatmap will be displayed.
 
 ```md
 ![2025 Yearly Heatmap](yearly_heatmaps/2025.png)
@@ -42,7 +42,7 @@ repos:
 ## Behavior
 
 - The hook regenerates `yearly_heatmaps/2025.png` and stages it with `git add` so it will be included in the running commit.
-- It seems the displayed image won't update sometimes due to cache. Solution is for the generator to update `README.md` with a cache-busting `?ts=` query parameter (so GitHub/CDN will fetch the new image), not implemented yet. 
+- The displayed image may not update immediately due to browser/CDN caching. A common solution is for the generator to update `README.md` with a cache-busting `?ts=` query parameter so viewers fetch the new image; that behavior is not implemented yet.
 
 ## Contributing
 
