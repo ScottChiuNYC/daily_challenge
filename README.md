@@ -8,7 +8,7 @@ Why use it?
 
 Example output (committed to your repo):
 
-![2025 Yearly Heatmap](yearly_heatmaps/2025.png)
+![2025 Yearly Heatmap](yearly_heatmaps/2025.png?ts=10142025)
 
 ## Install and Configure in Your Repository
 
