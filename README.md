@@ -24,7 +24,7 @@ pre-commit install
 ```yaml
 repos:
   - repo: https://github.com/ScottChiuNYC/daily_challenge
-    rev: v0.1.1  # pin to a release or SHA for stability
+    rev: v0.1.2  # pin to a release or SHA for stability
     hooks:
       - id: daily-challenge
         name: daily challenge
