@@ -1,4 +1,4 @@
--  id: daily-challenge
+ - id: daily-challenge
    name: daily challenge
    entry: python -c "from daily_challenge import main; main()"
    language: python
