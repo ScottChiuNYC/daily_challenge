@@ -1,6 +1,6 @@
-- id: daily-challenge
-  name: daily challenge
-  entry: python -c "from daily_challenge import main; main()"
-  language: python
-  description: "Generate the 2025 yearly heatmap and stage the generated image."
-  additional_dependencies: ['matplotlib', 'numpy']
+-  id: daily-challenge
+   name: daily challenge
+   entry: python -c "from daily_challenge import main; main()"
+   language: python
+   description: "Generate the 2025 yearly heatmap and stage the generated image."
+   additional_dependencies: ['matplotlib', 'numpy']
