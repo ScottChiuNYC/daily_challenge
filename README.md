@@ -33,10 +33,10 @@ repos:
         additional_dependencies: ['matplotlib', 'numpy']
 ```
 
-3. Optional, but recommended: Add the following image link to your repository's `README.md` so the generated heatmap will be displayed.
+3. Optional, but recommended: Add the following image link to your repository's `README.md` to display the generated heatmap. The timestamp in the URL is a simple cache-buster that helps viewers fetch the updated image.
 
 ```md
-![2025 Yearly Heatmap](yearly_heatmaps/2025.png)
+![2025 Yearly Heatmap](yearly_heatmaps/2025.png?ts=10022025)
 ```
 
 ## Behavior
