@@ -1,8 +1,8 @@
 # daily_challenge — GitHub-Hosted Pre-Commit Hook
 
-A lightweight pre-commit hook that regenerates a yearly activity heatmap from a repository's Git commit history. 
+A lightweight pre-commit hook that regenerates yearly activity heatmaps from a repository's Git commit history. 
 This repository is intended to be referenced directly by other projects via `pre-commit` (no PyPI publication required).
-A pre-commit hook runs automatically before Git creates a commit; this hook regenerates `yearly_heatmaps/2025.png` and stages it with `git add`.
+A pre-commit hook runs automatically before Git creates a commit; this hook regenerates yearly heatmaps for the commit year and all previous years (for example, `yearly_heatmaps/2025.png`) and stages them with `git add`.
 
 Example output (committed to your repo):
 
@@ -22,7 +22,7 @@ pre-commit install
 ```yaml
 repos:
   - repo: https://github.com/ScottChiuNYC/daily_challenge
-    rev: v0.1.2
+    rev: v0.1.3
     hooks:
       - id: daily-challenge
         name: daily challenge
@@ -31,10 +31,12 @@ repos:
         additional_dependencies: ['matplotlib', 'numpy']
 ```
 
-3. Optional, but recommended: Add the following image link to your repository's `README.md` to display the generated heatmap. The timestamp in the URL is a cache-buster that helps viewers fetch the updated image.
+3. Optional, but recommended: Add the following image links to your repository's `README.md` to display the generated heatmap. The timestamp in the URL is a cache-buster that helps viewers fetch the updated image.
 
 ```md
 ![2025 Yearly Heatmap](yearly_heatmaps/2025.png?ts=10022025)
+![2024 Yearly Heatmap](yearly_heatmaps/2024.png?ts=10022025)
+![2023 Yearly Heatmap](yearly_heatmaps/2023.png?ts=10022025)
 ```
 
 ## Contributing

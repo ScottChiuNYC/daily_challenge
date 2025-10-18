@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from datetime import datetime, timedelta, date
 from pathlib import Path
+from functools import cache
 
 def create_yearly_heatmaps_dir(repo_root: str | None = None) -> tuple[str, bool]:
     """Ensure a `yearly_heatmaps` directory exists at the repository root.
@@ -28,6 +29,7 @@ def create_yearly_heatmaps_dir(repo_root: str | None = None) -> tuple[str, bool]
         created = True
     return dir_path, created
 
+@cache
 def get_commit_dates(repo_path = '.'):
     os.chdir(repo_path)
     # Get the commit dates using git log
@@ -38,7 +40,13 @@ def get_commit_dates(repo_path = '.'):
     else:
         raise Exception('Error retrieving commit dates: ' + result.stderr)
 
-def draw_2025_heatmap(commit_dates=None, output_file="./yearly_heatmaps/2025.png"):
+def draw_yearly_heatmap(year, commit_dates=None, output_file=None):
+    """Generate a heatmap for a given year based on commit activity.
+
+    - year: The year for which the heatmap is generated.
+    - commit_dates: Optional list of commit dates. If None, fetch from Git.
+    - output_file: Optional output file path. Defaults to `yearly_heatmaps/{year}.png`.
+    """
     # Ensure the yearly_heatmaps directory exists at the project root before writing
     try:
         create_yearly_heatmaps_dir()
@@ -48,11 +56,11 @@ def draw_2025_heatmap(commit_dates=None, output_file="./yearly_heatmaps/2025.png
 
     commit_dates = commit_dates or get_commit_dates()
 
-    # Define start_date and end_date at the top of the function
-    start_date = datetime(2025, 1, 1).date()
-    end_date = datetime(2025, 12, 31).date()
+    # Define start_date and end_date for the given year
+    start_date = datetime(year, 1, 1).date()
+    end_date = datetime(year, 12, 31).date()
 
-    # Create a 7x53 matrix initialized with -1 (white for days not in 2025)
+    # Create a 7x53 matrix initialized with -1 (white for days not in the year)
     heatmap = np.full((7, 53), -1)
 
     # Ensure all commit dates are datetime.date objects
@@ -61,13 +69,13 @@ def draw_2025_heatmap(commit_dates=None, output_file="./yearly_heatmaps/2025.png
     elif isinstance(commit_dates[0], datetime):
         commit_dates = [date.date() for date in commit_dates]
 
-    # Filter commit dates to only include those in 2025
+    # Filter commit dates to only include those in the given year
     commit_dates = [date for date in commit_dates if start_date <= date <= end_date] + [date.today()]
 
     # Convert commit_dates to a set for faster lookup
     commit_dates_set = set(commit_dates)
 
-    # Iterate through all days in 2025 and populate the heatmap
+    # Iterate through all days in the year and populate the heatmap
     current_date = start_date
     while current_date <= end_date:
         week = ((current_date - start_date).days + start_date.weekday()) // 7
@@ -76,7 +84,7 @@ def draw_2025_heatmap(commit_dates=None, output_file="./yearly_heatmaps/2025.png
         if current_date in commit_dates_set:
             heatmap[day, week] = 2  # Chartreuse for days with a commit
         else:
-            heatmap[day, week] = 1  # Whitesmoke for days in 2025 without a commit
+            heatmap[day, week] = 1  # Whitesmoke for days in the year without a commit
 
         current_date += timedelta(days=1)
 
@@ -120,7 +128,7 @@ def draw_2025_heatmap(commit_dates=None, output_file="./yearly_heatmaps/2025.png
     ax.set_yticklabels(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'])
 
     # Update title with a neutral color
-    plt.title(f'{num_commit_dates} committed days in 2025', color='#808080')
+    plt.title(f'{num_commit_dates} committed days in {year}', color='#808080')
 
     # Update tick labels with a neutral color
     ax.tick_params(axis='x', colors='#808080')
@@ -136,19 +144,34 @@ def draw_2025_heatmap(commit_dates=None, output_file="./yearly_heatmaps/2025.png
     plt.tight_layout()
     plt.subplots_adjust(left=0.1, right=0.9, top=0.85, bottom=0.2)
 
+    # Set default output file if not provided
+    if output_file is None:
+        output_file = f"./yearly_heatmaps/{year}.png"
+
     # Save the heatmap with a transparent background
     plt.savefig(output_file, transparent=True)
     plt.close()
 
 
 def main():
-    out = Path("yearly_heatmaps") / "2025.png"
-    # Ensure directory exists and run the generator
-    draw_2025_heatmap()
+    # Fetch commit dates from the repository
+    commit_dates = get_commit_dates()
 
-    # If output exists, stage it so the commit includes the generated image
-    if out.exists():
-        subprocess.run(["git", "add", str(out)]) 
+    # Extract unique years from the commit dates
+    commit_years = set()
+    for date_str in commit_dates:
+        commit_date = datetime.strptime(date_str, '%a %b %d %H:%M:%S %Y %z').date()
+        commit_years.add(commit_date.year)
+
+    # Generate a heatmap for each year with commits
+    for year in sorted(commit_years):
+        output_file = f"yearly_heatmaps/{year}.png"
+        draw_yearly_heatmap(year, commit_dates, output_file)
+
+    # Stage all generated heatmaps for Git commits
+    yearly_heatmaps_dir = Path("yearly_heatmaps")
+    for heatmap_file in yearly_heatmaps_dir.glob("*.png"):
+        subprocess.run(["git", "add", str(heatmap_file)])
 
 
 if __name__ == "__main__":
@@ -156,16 +179,13 @@ if __name__ == "__main__":
     #       53 is hard coded in other places too. globally replace 53 with 54
     #       Leap years that start on a Sunday: 2040, 2068, 2096, 2124. We have until 2040 to fix this.
     
+    # TODO: If the commit doesn't happen in the root, will this still work? 
     # TODO: This is how you can move to the root of a project: cd $(git rev-parse --show-toplevel), needed to set up the pre-commit hook? 
-
-    # repo_path = 'D:/pyscripts/FixedIncome2025'  # Ensure this points to the root of the Git repository
-    # commit_dates = get_commit_dates(repo_path)
-
-    # draw_2025_heatmap(commit_dates, output_file="../2025_colored_heatmap.png")
 
     # There was an issue that, because this is used as a precommit hook, the first commit of a date doesn't give you today in the commit dates, 
     # so we need to add today's date too
+    # Where are the images? The get_commit_dates function changes the current working directory to the repo_path provided, 
+    # so the images will be in the repo_path
 
     main()
 
-    
