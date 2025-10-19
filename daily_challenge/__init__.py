@@ -93,7 +93,7 @@ def draw_yearly_heatmap(year, commit_dates=None, output_file=None):
     ax = plt.gca()
 
     # Define colors for the squares
-    # colors = {1: (245/255, 245/255, 245/255, 0.65), 2: (127/255, 255/255, 0, 1), -1: 'none'}
+    # colors = {1: (245/255, 245/255, 245/255, 0.65), 2: (127/255, 255/255, 0, 1), -1: 'none'}  # Previous colors: Whitesmoke with transparency
     colors = {1: (94/255, 123/255, 166/255, 0.1386), 2: (127/255, 255/255, 0, 1), -1: 'none'}
 
     # Define the gap size
@@ -187,6 +187,9 @@ if __name__ == "__main__":
     # so we need to add today's date too
     # Where are the images? The get_commit_dates function changes the current working directory to the repo_path provided, 
     # so the images will be in the repo_path
+
+    # Was using whitesmoke with transparency for days without commits, but it looks bad on light or white backgrounds.
+    # I gave AI screen shot of github profile heatmap on both light and dark mode. It chose colors that work well on both.
 
     main()
 
