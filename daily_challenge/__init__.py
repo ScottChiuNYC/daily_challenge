@@ -94,7 +94,7 @@ def draw_yearly_heatmap(year, commit_dates=None, output_file=None):
 
     # Define colors for the squares
     # colors = {1: (245/255, 245/255, 245/255, 0.65), 2: (127/255, 255/255, 0, 1), -1: 'none'}  # Previous colors: Whitesmoke with transparency
-    colors = {1: (94/255, 123/255, 166/255, 0.1386), 2: (127/255, 255/255, 0, 0.8), -1: 'none'}
+    colors = {1: (94/255, 123/255, 166/255, 0.1386), 2: (127/255, 255/255, 0, 0.85), -1: 'none'}
 
     # Define the gap size
     gap = 0.2
