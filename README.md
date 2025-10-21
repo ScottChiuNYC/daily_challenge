@@ -39,6 +39,10 @@ repos:
 ![2023 Yearly Heatmap](yearly_heatmaps/2023.png?ts=10022025)
 ```
 
+## Behavior
+
+In the current implementation, the commit has to happen in the root of the target repository for the updated images to be staged. 
+
 ## Contributing
 
 PRs welcome — especially for improving the hook manifest, docs, tests, or making the behavior configurable.
