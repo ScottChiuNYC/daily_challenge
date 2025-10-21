@@ -22,7 +22,7 @@ pre-commit install
 ```yaml
 repos:
   - repo: https://github.com/ScottChiuNYC/daily_challenge
-    rev: v0.1.3
+    rev: v0.1.4
     hooks:
       - id: daily-challenge
         name: daily challenge
