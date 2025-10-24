@@ -47,15 +47,15 @@ In the current implementation, the commit has to happen in the root of the targe
 
 PRs welcome — especially for improving the hook manifest, docs, tests, or making the behavior configurable.
 
-### Publishing Pre-Commit Hooks
+### Publishing Pre-Commit Hooks on GitHub
 
-* Add a `.pre-commit-hooks.yaml`; See example in the root of this project
-* pyproject.toml will be ignored
+* Add a `.pre-commit-hooks.yaml` to the repository; See example in the root of this repository
+* `pyproject.toml` will be ignored
 * The `files` field can be added like `files: \.csv$` to only run the hook on csv files
 
 ### Developing Pre-Commit Hooks
 
-* Add a `.pre-commit-config.yaml`; See example in the root of this project
+* Add a `.pre-commit-config.yaml`; See example in the root of this repository
   * `repo: local`
 * Run the hooks: 
 ```
