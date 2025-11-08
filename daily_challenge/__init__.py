@@ -181,7 +181,8 @@ if __name__ == "__main__":
     #       Leap years that start on a Sunday: 2040, 2068, 2096, 2124. We have until 2040 to fix this.
     
     # TODO: If the commit doesn't happen in the root, will this still work? 
-    # TODO: This is how you can move to the root of a project: cd $(git rev-parse --show-toplevel), needed to set up the pre-commit hook? 
+    # TODO: If there's been no commits in a repo, get_commit_dates will break
+    # TODO: what about commits in other branches? 
 
     # There was an issue that, because this is used as a precommit hook, the first commit of a date doesn't give you today in the commit dates, 
     # so we need to add today's date too
